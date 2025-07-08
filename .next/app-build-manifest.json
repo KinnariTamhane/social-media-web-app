@@ -11,6 +11,21 @@
       "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
+    "/memories/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/memories/page.js"
+    ],
+    "/watch/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/watch/page.js"
+    ],
+    "/events/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/events/page.js"
+    ],
     "/saved/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",

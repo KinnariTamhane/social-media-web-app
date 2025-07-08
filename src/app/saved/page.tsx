@@ -3,15 +3,34 @@ import Feed from '@/components/posts/Feed';
 import useSavedFlags from '@/components/posts/useSavedFlags';
 import { useState, useEffect } from 'react';
 
+interface User {
+  name: string;
+  avatar: string;
+}
+
+interface Post {
+  id: number;
+  user: User;
+  content: string;
+  image?: string;
+  video?: string;
+  timestamp: string;
+  likes: number;
+  comments: number;
+  shares: number;
+}
+
 export default function SavedPage() {
   const [savedFlags, setSavedFlags, loaded] = useSavedFlags();
-  const [userPosts, setUserPosts] = useState<any[]>([]);
+  const [userPosts, setUserPosts] = useState<Post[]>([]);
   useEffect(() => {
-    const stored = localStorage.getItem('userPosts');
-    if (stored) {
-      try {
-        setUserPosts(JSON.parse(stored));
-      } catch {}
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('userPosts');
+      if (stored) {
+        try {
+          setUserPosts(JSON.parse(stored));
+        } catch {}
+      }
     }
   }, []);
   if (!loaded) return null;

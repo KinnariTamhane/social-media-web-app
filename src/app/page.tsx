@@ -6,18 +6,37 @@ import Feed from '@/components/posts/Feed';
 import useSavedFlags from '@/components/posts/useSavedFlags';
 import { useState, useEffect } from 'react';
 
+interface User {
+  name: string;
+  avatar: string;
+}
+
+interface Post {
+  id: number;
+  user: User;
+  content: string;
+  image?: string;
+  video?: string;
+  timestamp: string;
+  likes: number;
+  comments: number;
+  shares: number;
+}
+
 export default function Home() {
   const [savedFlags, setSavedFlags, loaded] = useSavedFlags();
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   useEffect(() => {
-    const stored = localStorage.getItem('userPosts');
-    if (stored) {
-      try {
-        setPosts(JSON.parse(stored));
-      } catch {}
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('userPosts');
+      if (stored) {
+        try {
+          setPosts(JSON.parse(stored));
+        } catch {}
+      }
     }
   }, []);
-  const handleCreatePost = (post: any) => {
+  const handleCreatePost = (post: Post) => {
     setPosts(prev => {
       const updated = [post, ...prev];
       localStorage.setItem('userPosts', JSON.stringify(updated));

@@ -1,10 +1,25 @@
 'use client';
 
-import FallbackImage from '@/components/common/FallbackImage';
-import { useState, useEffect } from 'react';
-import { FaTrash } from 'react-icons/fa';
 import Feed from '@/components/posts/Feed';
 import useSavedFlags from '@/components/posts/useSavedFlags';
+import { useState, useEffect } from 'react';
+
+interface User {
+  name: string;
+  avatar: string;
+}
+
+interface Post {
+  id: number;
+  user: User;
+  content: string;
+  image?: string;
+  video?: string;
+  timestamp: string;
+  likes: number;
+  comments: number;
+  shares: number;
+}
 
 const posts = [
   {
@@ -62,35 +77,39 @@ const posts = [
 ];
 
 export default function MemoriesPage() {
-  const [userPosts, setUserPosts] = useState<any[]>([]);
+  const [userPosts, setUserPosts] = useState<Post[]>([]);
   const [deletedIds, setDeletedIds] = useState<number[]>([]);
   const [savedFlags, setSavedFlags, loaded] = useSavedFlags();
   useEffect(() => {
-    const stored = localStorage.getItem('userPosts');
-    if (stored) {
-      try {
-        setUserPosts(JSON.parse(stored));
-      } catch {}
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('userPosts');
+      if (stored) {
+        try {
+          setUserPosts(JSON.parse(stored));
+        } catch {}
+      }
     }
   }, []);
   const handleDelete = (postId: number) => {
     setDeletedIds(prev => [...prev, postId]);
     // Remove from localStorage
-    const stored = localStorage.getItem('userPosts');
-    if (stored) {
-      try {
-        const arr = JSON.parse(stored);
-        const updated = arr.filter((p: any) => p.id !== postId);
-        localStorage.setItem('userPosts', JSON.stringify(updated));
-        setUserPosts(updated);
-      } catch {}
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('userPosts');
+      if (stored) {
+        try {
+          const arr = JSON.parse(stored);
+          const updated = arr.filter((p: Post) => p.id !== postId);
+          localStorage.setItem('userPosts', JSON.stringify(updated));
+          setUserPosts(updated);
+        } catch {}
+      }
     }
   };
   if (!loaded) return null;
   const allPosts = [
-    ...userPosts.filter((p: any) => p.user?.name === 'Kinnari Tamhane'),
-    ...posts.filter((p: any) => p.user?.name === 'Kinnari Tamhane'),
-  ].filter((p: any) => !deletedIds.includes(p.id));
+    ...userPosts.filter((p: Post) => p.user?.name === 'Kinnari Tamhane'),
+    ...posts.filter((p: Post) => p.user?.name === 'Kinnari Tamhane'),
+  ].filter((p: Post) => !deletedIds.includes(p.id));
   return (
     <div className="max-w-2xl mx-auto space-y-6 w-full">
       <h1 className="text-2xl font-bold mb-4">Memories</h1>

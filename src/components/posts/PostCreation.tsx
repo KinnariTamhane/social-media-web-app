@@ -4,7 +4,24 @@ import { useState } from 'react';
 import { FaImage, FaVideo, FaSmile } from 'react-icons/fa';
 import FallbackImage from '@/components/common/FallbackImage';
 
-export default function PostCreation({ onCreatePost }: { onCreatePost?: (post: any) => void }) {
+interface User {
+  name: string;
+  avatar: string;
+}
+
+interface Post {
+  id: number;
+  user: User;
+  content: string;
+  image?: string;
+  video?: string;
+  timestamp: string;
+  likes: number;
+  comments: number;
+  shares: number;
+}
+
+export default function PostCreation({ onCreatePost }: { onCreatePost?: (post: Post) => void }) {
   const [showModal, setShowModal] = useState(false);
   const [text, setText] = useState('');
   const [image, setImage] = useState<File | null>(null);
@@ -52,15 +69,15 @@ export default function PostCreation({ onCreatePost }: { onCreatePost?: (post: a
 
   const handlePost = () => {
     if (!imagePreview && !videoPreview) return;
-    const newPost = {
+    const newPost: Post = {
       id: Date.now(),
       user: {
         name: 'Kinnari Tamhane',
         avatar: 'https://ui-avatars.com/api/?name=Kinnari+Tamhane',
       },
       content: text,
-      image: imagePreview,
-      video: videoPreview,
+      image: imagePreview || undefined,
+      video: videoPreview || undefined,
       timestamp: 'Just now',
       likes: 0,
       comments: 0,

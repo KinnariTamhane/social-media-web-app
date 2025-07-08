@@ -4,17 +4,34 @@ import { FaThumbsUp, FaComment, FaRegBookmark, FaBookmark, FaTrash } from 'react
 import FallbackImage from '@/components/common/FallbackImage';
 import { useState, useEffect } from 'react';
 
+interface User {
+  name: string;
+  avatar: string;
+}
+
+interface Post {
+  id: number;
+  user: User;
+  content: string;
+  image?: string;
+  video?: string;
+  timestamp: string;
+  likes: number;
+  comments: number;
+  shares: number;
+}
+
 export default function Feed({ showOnlySaved = false, savedFlagsProp, setSavedFlagsProp, likeCountsProp, posts: postsProp, allowDeleteAllByKinnari = false, onDeletePost }: {
   showOnlySaved?: boolean,
   savedFlagsProp?: boolean[],
   setSavedFlagsProp?: React.Dispatch<React.SetStateAction<boolean[]>>,
   likeCountsProp?: number[],
-  posts?: any[],
+  posts?: Post[],
   allowDeleteAllByKinnari?: boolean,
   onDeletePost?: (postId: number) => void,
 }) {
   const postsToShow = postsProp || [];
-  const [likeCounts, setLikeCounts] = useState<number[]>(likeCountsProp || postsToShow.map((post: any) => post.likes));
+  const [likeCounts, setLikeCounts] = useState<number[]>(likeCountsProp || postsToShow.map((post: Post) => post.likes));
   const [likedFlags, setLikedFlags] = useState<boolean[]>(postsToShow.map(() => false));
   const [savedFlags, setSavedFlags] = useState<boolean[]>(savedFlagsProp || postsToShow.map(() => false));
   const [openCommentsIdx, setOpenCommentsIdx] = useState<number | null>(null);
@@ -28,7 +45,7 @@ export default function Feed({ showOnlySaved = false, savedFlagsProp, setSavedFl
       } catch {}
     }
     // Default: mock comments for each post
-    return postsToShow.map((post: any) => Array.from({ length: post.comments }, (_, i) => `Comment ${i + 1} for post #${post.id}`));
+    return postsToShow.map((post: Post) => Array.from({ length: post.comments }, (_, i) => `Comment ${i + 1} for post #${post.id}`));
   });
   const [deletedIds, setDeletedIds] = useState<number[]>([]);
 
@@ -55,7 +72,7 @@ export default function Feed({ showOnlySaved = false, savedFlagsProp, setSavedFl
     }));
     setLikedFlags((prev: boolean[]) => prev.map((flag: boolean, i: number) => i === index ? !flag : flag));
   };
-  const filteredPosts = showOnlySaved ? postsToShow.filter((_: any, idx: number) => flags[idx]) : postsToShow;
+  const filteredPosts = showOnlySaved ? postsToShow.filter((_, idx: number) => flags[idx]) : postsToShow;
 
   const handleAddComment = (postIdx: number) => {
     if (!commentInputs[postIdx].trim()) return;
@@ -90,10 +107,8 @@ export default function Feed({ showOnlySaved = false, savedFlagsProp, setSavedFl
 
   return (
     <div className="space-y-4">
-      {filteredPosts.filter((post: any) => !deletedIds.includes(post.id)).map((post: any, idx: number) => {
-        const realIdx = showOnlySaved ? postsToShow.findIndex((p: any) => p.id === post.id) : idx;
-        // Mock comments array for demo
-        const commentsArray = Array.from({ length: post.comments }, (_, i) => `Comment ${i + 1} for post #${post.id}`);
+      {filteredPosts.filter((post: Post) => !deletedIds.includes(post.id)).map((post: Post, idx: number) => {
+        const realIdx = showOnlySaved ? postsToShow.findIndex((p: Post) => p.id === post.id) : idx;
         return (
           <div key={post.id} className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
             <div className="flex items-center mb-4">
