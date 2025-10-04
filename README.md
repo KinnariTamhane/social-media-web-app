@@ -1,19 +1,40 @@
-## Connect People - Social Media Web App
+## 👥 Connect People - Social Media Web App
 A modern, full-featured social media platform designed to help users share stories, post updates, connect with friends, and engage with content in a clean, intuitive UI.
 
+## ✨ Features 
 
-## Features :
+- User Profiles with avatars and personalized story tiles
+- Stories Section to view and add daily stories
+-  Post Box to share thoughts, photos, videos, and feelings
+-  Live Video, Media Uploads, and Activities support
+-  Sidebar Navigation: Friends, Watch, Memories, Saved, Events
+-  Sponsored Ads section
+- Online Friends list
 
-🧑‍🤝‍🧑 User Profiles with avatars and personalized story tiles
+## 🛠 Tech Stack
 
-📸 Stories Section to view and add daily stories
+- Next.js - Framework for React with built-in routing and SSR support.
+- React – Core library for building the UI.
+- TypeScript – Type-safe JavaScript for scalable and maintainable code.
+- Tailwind CSS – Utility-first CSS framework for custom design and layout.
+- Next/Image – Optimized image loading and rendering.
+- Flexbox & Grid – For responsive and dynamic layout composition.
+- Trae AI – AI-powered API client for managing network requests and data fetching in React applications.
 
-📝 Post Box to share thoughts, photos, videos, and feelings
+## 📸 Project Preview
 
-🎥 Live Video, Media Uploads, and Activities support
+## 📦 Getting Started
 
-🗂 Sidebar Navigation: Friends, Watch, Memories, Saved, Events
+Clone the repo : 
+git clone repo url
 
-📢 Sponsored Ads section
+Install dependencies : 
+npm install
 
-🟢 Online Friends list
+Run locally : 
+npm run dev
+
+Open http://localhost:3000 to view it in the browser.
+
+For Production : 
+npm run build
