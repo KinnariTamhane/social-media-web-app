@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+
 import Link from 'next/link';
-import { FaUserFriends, FaStore, FaVideo, FaHistory, FaBookmark, FaCalendarAlt } from 'react-icons/fa';
+import { FaUserFriends, FaVideo, FaHistory, FaBookmark, FaCalendarAlt } from 'react-icons/fa';
 
 export const menuItems = [
   { icon: FaUserFriends, label: 'Friends', href: '/friends' },

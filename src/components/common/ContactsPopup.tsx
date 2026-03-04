@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import FallbackImage from '@/components/common/FallbackImage';
 import { FaTimes } from 'react-icons/fa';
 

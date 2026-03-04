@@ -83,18 +83,18 @@ export default function Feed({ showOnlySaved = false, savedFlagsProp, setSavedFl
     setCommentInputs(prev => prev.map((val, i) => i === postIdx ? '' : val));
   };
 
-  const handleDelete = (postId: number) => {
-    setDeletedIds(prev => [...prev, postId]);
-    // Remove from localStorage if user-created
-    const stored = localStorage.getItem('userPosts');
-    if (stored) {
-      try {
-        const arr = JSON.parse(stored);
-        const updated = arr.filter((p: any) => p.id !== postId);
-        localStorage.setItem('userPosts', JSON.stringify(updated));
-      } catch {}
-    }
-  };
+  // const handleDelete = (postId: number) => {
+  //   setDeletedIds(prev => [...prev, postId]);
+  //   // Remove from localStorage if user-created
+  //   const stored = localStorage.getItem('userPosts');
+  //   if (stored) {
+  //     try {
+  //       const arr = JSON.parse(stored);
+  //       const updated = arr.filter((p: any) => p.id !== postId);
+  //       localStorage.setItem('userPosts', JSON.stringify(updated));
+  //     } catch {}
+  //   }
+  // };
 
   const handleDeleteComment = (postIdx: number, commentIdx: number) => {
     setCommentsState(prev => {
