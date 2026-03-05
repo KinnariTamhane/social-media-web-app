@@ -1,4 +1,4 @@
-// File: /Users/tickledmedia/Kinnari/my-repo/social-media-app/src/app/memories/page.tsx
+// File: /Users/kinnaritamhane/Desktop/Kinnari/my-repo/social-media-app/src/app/memories/page.tsx
 import * as entry from '../../../../src/app/memories/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
