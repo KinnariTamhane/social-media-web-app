@@ -101,7 +101,7 @@ export default function PostCreation({ onCreatePost }: { onCreatePost?: (post: P
           className="flex-grow text-left px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
           onClick={openModal}
         >
-          What's on your mind?
+          What&apos;s on your mind?
         </button>
       </div>
 

@@ -47,7 +47,7 @@ export default function Feed({ showOnlySaved = false, savedFlagsProp, setSavedFl
     // Default: mock comments for each post
     return postsToShow.map((post: Post) => Array.from({ length: post.comments }, (_, i) => `Comment ${i + 1} for post #${post.id}`));
   });
-  const [deletedIds, setDeletedIds] = useState<number[]>([]);
+  const [deletedIds] = useState<number[]>([]);
 
   useEffect(() => {
     localStorage.setItem('postComments', JSON.stringify(commentsState));
