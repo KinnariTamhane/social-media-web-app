@@ -19,7 +19,6 @@ A modern, full-featured social media platform designed to help users share stori
 - Tailwind CSS – Utility-first CSS framework for custom design and layout.
 - Next/Image – Optimized image loading and rendering.
 - Flexbox & Grid – For responsive and dynamic layout composition.
-- Trae AI – AI-powered API client for managing network requests and data fetching in React applications.
 
 ## 📸 Project Preview
 
