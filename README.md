@@ -1,5 +1,5 @@
 ## 👥 Connect People - Social Media Web App
-A modern, full-featured social media platform designed to help users share stories, post updates, connect with friends, and engage with content in a clean, intuitive UI.
+A modern social media web application featuring user profiles, stories, post creation, media uploads, and a real-time friends list. Built with Next.js 15, TypeScript, and Tailwind CSS — focused on component architecture, responsive layout, and clean UI.
 
 ## ✨ Features 
 
