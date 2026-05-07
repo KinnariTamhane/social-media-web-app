@@ -1,6 +1,8 @@
 ## 👥 Connect People - Social Media Web App
 A modern social media web application featuring user profiles, stories, post creation, media uploads, and a real-time friends list. Built with Next.js 15, TypeScript, and Tailwind CSS — focused on component architecture, responsive layout, and clean UI.
 
+Live Demo :  https://socialmedia-webap.netlify.app/
+
 ## ✨ Features 
 
 - User Profiles with avatars and personalized story tiles
