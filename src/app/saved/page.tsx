@@ -1,43 +1,33 @@
 'use client';
 import Feed from '@/components/posts/Feed';
 import useSavedFlags from '@/components/posts/useSavedFlags';
-import { useState, useEffect } from 'react';
-
-interface User {
-  name: string;
-  avatar: string;
-}
-
-interface Post {
-  id: number;
-  user: User;
-  content: string;
-  image?: string;
-  video?: string;
-  timestamp: string;
-  likes: number;
-  comments: number;
-  shares: number;
-}
+import { defaultPosts, type Post } from '@/data/defaultPosts';
+import { useState, useEffect, useMemo } from 'react';
 
 export default function SavedPage() {
-  const [savedFlags, setSavedFlags, loaded] = useSavedFlags();
+  const [savedPostIds, setSavedPostIds, loaded] = useSavedFlags();
   const [userPosts, setUserPosts] = useState<Post[]>([]);
+  const [postsReady, setPostsReady] = useState(false);
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('userPosts');
-      if (stored) {
-        try {
-          setUserPosts(JSON.parse(stored));
-        } catch {}
-      }
+    const stored = localStorage.getItem('userPosts');
+    if (stored) {
+      try {
+        setUserPosts(JSON.parse(stored));
+      } catch {}
     }
+    setPostsReady(true);
   }, []);
-  if (!loaded) return null;
+  const allPosts = useMemo(() => [...userPosts, ...defaultPosts], [userPosts]);
+  if (!loaded || !postsReady) return null;
   return (
     <div className="max-w-2xl mx-auto space-y-6 w-full">
       <h1 className="text-2xl font-bold mb-4">Saved Posts</h1>
-      <Feed showOnlySaved={true} savedFlagsProp={savedFlags} setSavedFlagsProp={setSavedFlags} posts={userPosts} />
+      <Feed
+        showOnlySaved={true}
+        savedPostIdsProp={savedPostIds}
+        setSavedPostIdsProp={setSavedPostIds}
+        posts={allPosts}
+      />
     </div>
   );
 }

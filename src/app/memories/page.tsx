@@ -79,7 +79,7 @@ const posts = [
 export default function MemoriesPage() {
   const [userPosts, setUserPosts] = useState<Post[]>([]);
   const [deletedIds, setDeletedIds] = useState<number[]>([]);
-  const [savedFlags, setSavedFlags, loaded] = useSavedFlags();
+  const [savedPostIds, setSavedPostIds, loaded] = useSavedFlags();
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('userPosts');
@@ -113,7 +113,7 @@ export default function MemoriesPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-6 w-full">
       <h1 className="text-2xl font-bold mb-4">Memories</h1>
-      <Feed posts={allPosts} savedFlagsProp={savedFlags} setSavedFlagsProp={setSavedFlags} allowDeleteAllByKinnari={true} onDeletePost={handleDelete} />
+      <Feed posts={allPosts} savedPostIdsProp={savedPostIds} setSavedPostIdsProp={setSavedPostIds} allowDeleteAllByKinnari={true} onDeletePost={handleDelete} />
     </div>
   );
 } 

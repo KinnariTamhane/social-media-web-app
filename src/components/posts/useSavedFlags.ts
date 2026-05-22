@@ -1,32 +1,46 @@
 import { useEffect, useState } from 'react';
+import { DEFAULT_POST_IDS } from '@/data/defaultPosts';
 
-const LOCAL_STORAGE_KEY = 'savedFlags';
-const NUM_POSTS = 7; // Update if the number of posts changes
+const SAVED_POST_IDS_KEY = 'savedPostIds';
+const LEGACY_SAVED_FLAGS_KEY = 'savedFlags';
+
+function migrateLegacySavedFlags(): number[] {
+  const legacy = localStorage.getItem(LEGACY_SAVED_FLAGS_KEY);
+  if (!legacy) return [];
+  try {
+    const flags = JSON.parse(legacy) as boolean[];
+    if (!Array.isArray(flags)) return [];
+    return DEFAULT_POST_IDS.filter((_, i) => flags[i]);
+  } catch {
+    return [];
+  }
+}
 
 export default function useSavedFlags() {
-  // Always initialize to a fixed value for SSR consistency
-  const [savedFlags, setSavedFlags] = useState<boolean[]>(Array(NUM_POSTS).fill(false));
+  const [savedPostIds, setSavedPostIds] = useState<number[]>([]);
   const [loaded, setLoaded] = useState(false);
 
-  // Only read from localStorage on the client
   useEffect(() => {
-    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const stored = localStorage.getItem(SAVED_POST_IDS_KEY);
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length === NUM_POSTS) {
-          setSavedFlags(parsed);
+        if (Array.isArray(parsed) && parsed.every((id) => typeof id === 'number')) {
+          setSavedPostIds(parsed);
+          setLoaded(true);
+          return;
         }
       } catch {}
     }
+    setSavedPostIds(migrateLegacySavedFlags());
     setLoaded(true);
   }, []);
 
   useEffect(() => {
     if (loaded) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(savedFlags));
+      localStorage.setItem(SAVED_POST_IDS_KEY, JSON.stringify(savedPostIds));
     }
-  }, [savedFlags, loaded]);
+  }, [savedPostIds, loaded]);
 
-  return [savedFlags, setSavedFlags, loaded] as const;
-} 
+  return [savedPostIds, setSavedPostIds, loaded] as const;
+}
