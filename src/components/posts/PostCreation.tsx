@@ -137,7 +137,7 @@ export default function PostCreation({ onCreatePost }: { onCreatePost?: (post: P
             <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Create Post</h2>
             <textarea
               className="w-full h-24 p-2 mb-4 border border-gray-300 dark:border-gray-700 rounded resize-none bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
-              placeholder="What's on your mind?"
+              placeholder="What&apos;s on your mind?"
               value={text}
               onChange={e => setText(e.target.value)}
             />
